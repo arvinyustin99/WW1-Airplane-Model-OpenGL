@@ -5,7 +5,7 @@ Modelling First World War Airplane with OpenGL
 ```shell
 g++ main.cpp camera.h -lglfw -lGL -lGLU -lglut -o main
 ```
-*  Movement
+*  Camera Movement
 
     **w**    : up
     
