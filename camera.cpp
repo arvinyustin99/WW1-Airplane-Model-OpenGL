@@ -2,9 +2,9 @@
 #include "camera.h"
 
 Camera::Camera(){
-	eye = glm::vec3(0.0f, 0.0f, 0.0f);
+	eye = glm::vec3(0.0f, 0.0f, 5.0f);
 
-	target = glm::vec3(0.0f, 0.0f, -5.0f);
+	target = glm::vec3(0.0f, 0.0f, -1000.0f);
 	direction = glm::normalize(eye - target);
 
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -13,8 +13,8 @@ Camera::Camera(){
 	yPosAxis = glm::cross(direction, xPosAxis);
 }
 void Camera::reset(){
-	eye = glm::vec3(0.0f, 0.0f, 0.0f);
-	target = glm::vec3(0.0f, 0.0f, -5.0f);
+	eye = glm::vec3(0.0f, 0.0f, 5.0f);
+	target = glm::vec3(0.0f, 0.0f, 0.0f);
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
@@ -36,8 +36,10 @@ void Camera::moveDown(){
 
 void Camera::zoomIn(){
 	eye.z -= movementSpeed;
+	target.z -= movementSpeed;
 }
 
 void Camera::zoomOut(){
 	eye.z += movementSpeed;
+	target.z += movementSpeed;
 }

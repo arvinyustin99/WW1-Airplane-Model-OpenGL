@@ -4,6 +4,7 @@ class Camera {
 	public:
 		float movementSpeed = 0.1f;
 		glm::vec3 eye, target, up, direction, xPosAxis, yPosAxis;
+		glm::mat4 transformMatrix;
 
 		Camera();
 		void reset();
