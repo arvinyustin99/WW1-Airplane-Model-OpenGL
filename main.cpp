@@ -1,16 +1,15 @@
 #include <GL/glut.h>
 #include "camera.cpp"
 #include <iostream>
-#include <omp.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 GLfloat angleCube = 0.0f;
 GLfloat speedUnit = 0.2f;
-GLfloat clipX = 20.0f, clipY = 20.0f;
-GLfloat nearZ = 1.0f;
-GLfloat farZ = -100.0f;
+GLfloat clipX = 1.0f, clipY = 1.0f;
+GLfloat nearZ = 2.0f;
+GLfloat farZ = 100.0f;
+GLfloat fovy = 45.0f;
+
+GLfloat gridRange = 10.0f;
 
 Camera camera = Camera();
 
@@ -43,9 +42,11 @@ void keyboardHandler(unsigned char key, int x, int y){
 		camera.moveDown();
 	}
 	else if (key == 73 || key == 105){
+		// Zoom In
 		camera.zoomIn();
 	}
 	else if (key == 79 || key == 111){
+		// Zoom Out
 		camera.zoomOut();
 	}
 }
@@ -57,107 +58,103 @@ void reshape(GLsizei width, GLsizei height){
 	GLfloat aspectRatio = (GLfloat) width/ (GLfloat) height;
 
 	glViewport(0, 0, width, height);
-
-	// Setting CLIPPING AREA
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	if (width >= height){
-		gluOrtho2D(
-			-clipX * aspectRatio, clipX * aspectRatio,
-			-clipY, clipY);
-	}
-	else{
-		gluOrtho2D(
-			-clipX, clipX,
-			-clipY / aspectRatio, clipY / aspectRatio);
-	}
-
-	gluLookAt(
-		camera.eye.x, camera.eye.y, camera.eye.z,
-		camera.target.x, camera.target.y, camera.target.z,
-		camera.up.x, camera.up.y, camera.up.z
-	);
 }
 
 void idle(){
 	glutPostRedisplay();
 }
-
-void display(){
-	glClear(GL_COLOR_BUFFER_BIT);
+void createPlane(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	glPushMatrix();
-	//glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
-
-	// Face
-	glColor3f(0.5f, 0.5f, 0.3f);
-	glBegin(GL_QUADS);
-		glVertex3f(0.25f, 0.0f, 0.25f);
-		glVertex3f(0.0f, 0.25f, 0.25f);
-		glVertex3f(-0.25f, 0.0f, 0.25f);
-		glVertex3f(0.0f, -0.25f, 0.25f);
-	glEnd();
-
-	// Back Side
-	glColor3f(0.6f, 0.0f, 0.0f);
-	glBegin(GL_QUADS);
-		glVertex3f(0.3f, 0.0f, -0.25f);
-		glVertex3f(0.0f, 0.3f, -0.25f);
-		glVertex3f(-0.3f, 0.0f, -0.25f);
-		glVertex3f(0.0f, -0.3f, -0.25f);
-	glEnd();
-
-	// Upper Left
-	glColor3f(0.0f, 0.0f, 0.6f);
-	glBegin(GL_QUADS);
-		glVertex3f(0.25f, 0.0f, 0.25f);
-		glVertex3f(0.3f, 0.0f, -0.25f);
-		glVertex3f(0.0f, 0.3f, -0.25f);
-		glVertex3f(0.0f, 0.25f, 0.25f);
-	glEnd();
-
-	// Upper Right
-	glColor3f(0.5f, 0.8f, 0.2f);
-	glBegin(GL_QUADS);
-		glVertex3f(0.0f, 0.25f, 0.25f);
-		glVertex3f(0.0f, 0.3f, -0.25f);
-		glVertex3f(-0.3f, 0.0f, -0.25f);
-		glVertex3f(-0.25f, 0.0f, 0.25f);
-	glEnd();
-
-	// Lower Right
-	glColor3f(0.5f, 0.5f, 0.8f);
-	glBegin(GL_QUADS);
-		glVertex3f(-0.25f, 0.0f, 0.25f);
-		glVertex3f(-0.3f, 0.0f, -0.25f);
-		glVertex3f(0.0f, -0.3f, -0.25f);
-		glVertex3f(0.0f, -0.25f, 0.25f);
-	glEnd();
-
-	// Lower Left
-	glColor3f(0.1f, 0.7f, 0.4f);
-	glBegin(GL_QUADS);
-		glVertex3f(0.0f, -0.25f, 0.25f);
-		glVertex3f(0.0f, -0.3f, -0.25f);
-		glVertex3f(0.3f, 0.0f, -0.25f);
-		glVertex3f(0.25f, 0.0f, 0.25f);
-	glEnd();
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-	glPopMatrix();
+}
+void display(){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
+	glFrustum(
+		-clipX, clipX,
+		-clipY, clipY,
+		nearZ, farZ
+	);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	gluLookAt(
 		camera.eye.x, camera.eye.y, camera.eye.z,
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z
 	);
 
+
+	GLfloat i = -gridRange;
+	glColor3f(1.0f, 1.0f, 1.0f);
+	while (i <= gridRange){
+		glBegin(GL_LINES);
+			glVertex3f(i, 0.0f, gridRange);
+			glVertex3f(i, 0.0f, -gridRange);
+		glEnd();
+		glBegin(GL_LINES);
+			glVertex3f(gridRange, 0.0f, i);
+			glVertex3f(-gridRange, 0.0f, i);
+		glEnd();
+		i += 1;
+	}
+	//glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
+	// Face
+	glColor3f(0.5f, 0.5f, 0.3f);
+	glBegin(GL_QUADS);
+		glVertex3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, -1.0f, 1.0f);
+		glVertex3f(1.0f, -1.0f, 1.0f);
+	glEnd();
+
+	// Back Side
+	glColor3f(0.6f, 0.0f, 0.0f);
+	glBegin(GL_QUADS);
+		glVertex3f(1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, -1.0f, -1.0f);
+	glEnd();
+
+	// Top
+	glColor3f(0.0f, 0.0f, 0.6f);
+	glBegin(GL_QUADS);
+		glVertex3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, 1.0f, 1.0f);
+	glEnd();
+
+	// Left Side
+	glColor3f(0.5f, 0.8f, 0.2f);
+	glBegin(GL_QUADS);
+		glVertex3f(-1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, -1.0f, -1.0f);
+		glVertex3f(-1.0f, -1.0f, 1.0f);
+	glEnd();
+
+	// Bottom
+	glColor3f(0.5f, 0.5f, 0.8f);
+	glBegin(GL_QUADS);
+		glVertex3f(-1.0f, -1.0f, 1.0f);
+		glVertex3f(-1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, -1.0f, 1.0f);
+	glEnd();
+
+	// Right Side
+	glColor3f(0.1f, 0.7f, 0.4f);
+	glBegin(GL_QUADS);
+		glVertex3f(1.0f, -1.0f, 1.0f);
+		glVertex3f(1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, 1.0f);
+	glEnd();
+
+	
 	glutSwapBuffers();
 	angleCube += 2.0f;
 }
@@ -169,7 +166,6 @@ int main(int argc, char** argv){
 	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("First Time?");
-	#pragma omp parallel
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboardHandler);
 	glutIdleFunc(idle);
