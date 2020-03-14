@@ -1,17 +1,29 @@
 #include <glm/glm.hpp>
 
+#define PI 3.14159f
 class Camera {
 	public:
 		float movementSpeed = 0.1f;
-		glm::vec3 eye, target, up, direction, xPosAxis, yPosAxis;
+		float currentAngleXZ, currentAngleYZ;
+		glm::vec3 origin;
+		glm::vec3 eye, target, up;
 		glm::mat4 transformMatrix;
+
+		float rad(float);
+		float distance(float, float, float, float);
 
 		Camera();
 		void reset();
+
 		void moveLeft();
 		void moveRight();
 		void moveUp();
 		void moveDown();
 		void zoomIn();
 		void zoomOut();
+		void roll();
+
+		void rotateX(float);
+		void rotateY(float);
+		void rotateZ(float);
 };
