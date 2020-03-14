@@ -31,15 +31,15 @@ void keyboardHandler(unsigned char key, int x, int y){
 	else if (key == 'R'){ degreeX = 0.0f; degreeY = 0.0f; degreeZ = 0.0f; } // Reset Object
 	else if (key == 'a' || key == 'A'){ camera.rotateY(-2.0f); }
 	else if (key == 'd' || key == 'D'){ camera.rotateY(2.0f); }
-	else if (key == 'r' || key == 'Q'){ camera.roll(); }
+	else if (key == 'q' || key == 'Q'){ camera.roll(); }
 	else if (key == 'i' || key == 'I'){ camera.zoomIn(); } // ZOOM IN
 	else if (key == 'o' || key == 'O'){ camera.zoomOut(); }
 	else if (key == 'x'){ degreeX += angleCube; }
 	else if (key == 'X'){ degreeX -= angleCube; }
 	else if (key == 'y'){ degreeY += angleCube; }
 	else if (key == 'Y'){ degreeY -= angleCube; }
-	else if (key == 'z'){ degreeZ += angleCube; }
-	else if (key == 'Z'){ degreeZ -= angleCube; }
+	else if (key == 'z'){ degreeZ -= angleCube; }
+	else if (key == 'Z'){ degreeZ += angleCube; }
 }
 
 void reshape(GLsizei width, GLsizei height){
@@ -89,7 +89,7 @@ void display(){
 	}
 	glRotatef(degreeX, 1.0f, 0.0f, 0.0f);
 	glRotatef(degreeY, 0.0f, 1.0f, 0.0f);
-	glRotatef(degreeZ, 1.0f, 0.0f, 1.0f);
+	glRotatef(degreeZ, 0.0f, 0.0f, 1.0f);
 	// Face
 	glColor3f(0.5f, 0.5f, 0.3f);
 	glBegin(GL_QUADS);
