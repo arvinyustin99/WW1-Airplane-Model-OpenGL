@@ -2,12 +2,14 @@
 #include "camera.cpp"
 #include <iostream>
 
-GLfloat angleCube = 0.0f;
+GLfloat angleCube = 1.0f;
 GLfloat speedUnit = 0.2f;
 GLfloat clipX = 1.0f, clipY = 1.0f;
 GLfloat nearZ = 2.0f;
 GLfloat farZ = 100.0f;
 GLfloat fovy = 45.0f;
+
+GLfloat degreeX = 0.0f, degreeY = 0.0f, degreeZ = 0.0f;
 
 GLfloat gridRange = 10.0f;
 
@@ -24,31 +26,20 @@ void initGL(){
 }
 
 void keyboardHandler(unsigned char key, int x, int y){
-	std::cout << "depth : " << camera.eye.z << std::endl;
 	if (key == 27){ exit(0);}
-	else if (key == 82 || key == 114){
-		camera.reset();
-	}
-	else if (key == 65 || key == 97){
-		camera.moveLeft();
-	}
-	else if (key == 68 || key == 100){
-		camera.moveRight();
-	}
-	else if (key == 87 || key == 119){
-		camera.moveUp();
-	}
-	else if (key == 83 || key == 115){
-		camera.moveDown();
-	}
-	else if (key == 73 || key == 105){
-		// Zoom In
-		camera.zoomIn();
-	}
-	else if (key == 79 || key == 111){
-		// Zoom Out
-		camera.zoomOut();
-	}
+	else if (key == 'r'){ camera.reset(); } // Reset Camera
+	else if (key == 'R'){ degreeX = 0.0f; degreeY = 0.0f; degreeZ = 0.0f; } // Reset Object
+	else if (key == 'a' || key == 'A'){ camera.rotateY(-2.0f); }
+	else if (key == 'd' || key == 'D'){ camera.rotateY(2.0f); }
+	else if (key == 'r' || key == 'Q'){ camera.roll(); }
+	else if (key == 'i' || key == 'I'){ camera.zoomIn(); } // ZOOM IN
+	else if (key == 'o' || key == 'O'){ camera.zoomOut(); }
+	else if (key == 'x'){ degreeX += angleCube; }
+	else if (key == 'X'){ degreeX -= angleCube; }
+	else if (key == 'y'){ degreeY += angleCube; }
+	else if (key == 'Y'){ degreeY -= angleCube; }
+	else if (key == 'z'){ degreeZ += angleCube; }
+	else if (key == 'Z'){ degreeZ -= angleCube; }
 }
 
 void reshape(GLsizei width, GLsizei height){
@@ -63,10 +54,7 @@ void reshape(GLsizei width, GLsizei height){
 void idle(){
 	glutPostRedisplay();
 }
-void createPlane(){
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
+
 void display(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -99,7 +87,9 @@ void display(){
 		glEnd();
 		i += 1;
 	}
-	//glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
+	glRotatef(degreeX, 1.0f, 0.0f, 0.0f);
+	glRotatef(degreeY, 0.0f, 1.0f, 0.0f);
+	glRotatef(degreeZ, 1.0f, 0.0f, 1.0f);
 	// Face
 	glColor3f(0.5f, 0.5f, 0.3f);
 	glBegin(GL_QUADS);
@@ -156,7 +146,6 @@ void display(){
 
 	
 	glutSwapBuffers();
-	angleCube += 2.0f;
 }
 
 int main(int argc, char** argv){
