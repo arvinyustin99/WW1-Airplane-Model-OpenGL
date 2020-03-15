@@ -10,13 +10,13 @@ Camera::Camera(){
 	currentAngleXZ = 0.0f;
 	currentAngleYZ = 0.0f;
 	origin = glm::vec3(0.0f, 0.0f, 0.0f);
-	eye = glm::vec3(0.0f, 10.0f, 20.0f);
+	eye = glm::vec3(0.0f, 0.0f, 10.0f);
 	target = glm::vec3(0.0f, 0.0f, 0.0f);
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 void Camera::reset(){
-	eye = glm::vec3(0.0f, 10.0f, 20.0f);
-	target = glm::vec3(0.0f, .0f, 0.0f);
+	eye = glm::vec3(0.0f, 0.0f, 10.0f);
+	target = glm::vec3(0.0f, 0.0f, 0.0f);
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 	currentAngleXZ = 0.0f;
 	currentAngleYZ = 0.0f;
@@ -80,7 +80,6 @@ void Camera::rotateY(float unit){
 	if (currentAngleXZ < 0){
 		currentAngleXZ += 360.0f;
 	}
-	std::cout<<" angle: " << currentAngleXZ << std::endl;
 }
 
 void Camera::rotateX(float unit){

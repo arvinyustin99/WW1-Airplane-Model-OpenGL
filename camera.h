@@ -9,7 +9,7 @@ class Camera {
 		glm::vec3 eye, target, up;
 		glm::mat4 transformMatrix;
 
-		float rad(float);
+		static float rad(float);
 		float distance(float, float, float, float);
 
 		Camera();
