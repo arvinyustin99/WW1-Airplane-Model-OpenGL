@@ -14,9 +14,17 @@ GLfloat gridRange = 10.0f;
 // CONST FOR PLANE
 
 GLfloat WING_WIDTH = 4.0f;
+GLfloat WING_LENGTH = 1.5f;
 GLfloat WING_THICKNESS = 0.1f;
 GLfloat WING_HEIGHT = 1.0f;
 GLfloat WING_AXIS_X = 0.0f, WING_AXIS_Y = 0.0f, WING_AXIS_Z = 0.0f;
+
+GLfloat HR_WIDTH_STBLZ = 1.5f;
+GLfloat HR_LENGTH_STBLZ = 1.0f;
+GLfloat HR_GAP = 1.0f;
+GLfloat HR_AXIS_X = 0.0f;
+GLfloat HR_AXIS_Y = 0.0f;
+GLfloat HR_AXIS_Z = 0.0f;
 
 GLfloat PROPELLER_AXIS_RADIUS = 0.2f;
 GLfloat PROPELLER_AXIS_X = 0.0f, PROPELLER_AXIS_Y = 0.0f, PROPELLER_AXIS_Z = -3.0f;
@@ -108,19 +116,19 @@ void display(){
 	{
 		glBegin(GL_POLYGON);
 			glVertex3f(WING_WIDTH, WING_AXIS_Y + WING_HEIGHT, 0.0f);
-			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -1.1f);
-			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), 0.0f);
 		glEnd();
 
 		glBegin(GL_POLYGON);
 			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
-			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
+			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
 			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
 		glEnd();
 
@@ -133,56 +141,56 @@ void display(){
 
 		glBegin(GL_QUADS);
 			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
-			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), 0.0f);
 		glEnd();
 
 		glBegin(GL_QUADS);
-			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 		glEnd();
 		
 		glBegin(GL_QUADS);
-			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -1.5f);
+			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
 		glEnd();
 
 		glBegin(GL_QUADS);
-			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -1.1f);
-			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
+			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
+			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
 		glEnd();
 
 		glBegin(GL_QUADS);
-			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
+			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
 			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
 			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), 0.0f);
-			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(-WING_WIDTH, (WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 		glEnd();
 
 		// LOWER WING
 
 		glBegin(GL_POLYGON);
 			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), 0.0f);
-			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -1.1f);
-			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), 0.0f);
 		glEnd();
 
 		glBegin(GL_POLYGON);
 			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
-			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
+			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
 			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
 		glEnd();
 
@@ -195,37 +203,37 @@ void display(){
 
 		glBegin(GL_QUADS);
 			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
-			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), 0.0f);
 		glEnd();
 
 		glBegin(GL_QUADS);
-			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 		glEnd();
 		
 		glBegin(GL_QUADS);
-			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -1.5f);
+			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
 		glEnd();
 
 		glBegin(GL_QUADS);
-			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
-			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -1.1f);
-			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -1.5f);
-			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.5f);
+			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
+			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
+			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT), -WING_LENGTH);
+			glVertex3f(-WING_WIDTH * 0.8, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -WING_LENGTH);
 		glEnd();
 
 		glBegin(GL_QUADS);
-			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -1.1f);
+			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), -(WING_LENGTH  * 0.6));
 			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT + WING_THICKNESS), 0.0f);
 			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), 0.0f);
-			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -1.1f);
+			glVertex3f(-WING_WIDTH, -(WING_AXIS_Y + WING_HEIGHT), -(WING_LENGTH  * 0.6));
 		glEnd();
 
 		// KANAN
@@ -368,6 +376,155 @@ void display(){
 		glEnd();
 	}
 
+	// Horizontal
+	{
+		glColor3f(1.0f, 0.2f, 0.1f);
+		glBegin(GL_POLYGON);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X + 0.6f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.2f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X + 1.1f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X + 0.6f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.2f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X + 1.1f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X + 1.1f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X + 1.1f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X + 1.1f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X + 1.1f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.6f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X + 1.2f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.2f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.5f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.2f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X + 1.2f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 0.6f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 0.6f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X + 1.2f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X + 0.6f) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X + 0.6f) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) + HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.1f);
+		glEnd();
+
+		// KIRI
+		glColor3f(0.0f, 0.4f, 1.0f);
+		glBegin(GL_POLYGON);
+			glVertex3f((HR_AXIS_X - 1.1f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X - 1.2f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 0.6f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+			glVertex3f((HR_AXIS_X - 1.1f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X - 1.2f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 0.6f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X - 1.1f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X - 1.1f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X - 1.1f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.25f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X - 1.1f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.25f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 0.6f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 0.6f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.2f);
+			glVertex3f((HR_AXIS_X - 1.2f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 1.2f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 1.5f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.2f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X - 1.2f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 0.6f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 0.6f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X - 1.2f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X - 0.6f) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.5f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2 , HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X - 0.6f) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.5f);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z - 1.1f);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y - 0.05f, HR_AXIS_Z);
+			glVertex3f((HR_AXIS_X) - HR_GAP/2, HR_AXIS_Y + 0.05f, HR_AXIS_Z);
+		glEnd();
+	}
+
+	glColor3f(1.0f, 1.0f, 0.1f);
 	// Propellers
 	{
 		glTranslatef(PROPELLER_AXIS_X, PROPELLER_AXIS_Y, PROPELLER_AXIS_Z);
