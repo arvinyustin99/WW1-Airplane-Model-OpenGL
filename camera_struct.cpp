@@ -1,5 +1,5 @@
 #include <iostream>
-#include "camera.h"
+#include "camera_struct.h"
 #include <math.h>
 
 float Camera::rad(float deg){
@@ -9,16 +9,40 @@ float Camera::rad(float deg){
 Camera::Camera(){
 	currentAngleXZ = 0.0f;
 	currentAngleYZ = 0.0f;
-	eye = glm::vec3(0.0f, 0.0f, 10.0f);
-	target = glm::vec3(0.0f, 0.0f, 0.0f);
-	up = glm::vec3(0.0f, 1.0f, 0.0f);
+	{
+		eye.x = 0.0f;
+		eye.y = 0.0f;
+		eye.z = 10.0f;
+	}
+	{
+		target.x = 0.0f;
+		target.y = 0.0f;
+		target.z = 0.0f;
+	}
+	{
+		up.x = 0.0f;
+		up.y = 1.0f;
+		up.z = 0.0f;
+	}
 }
 void Camera::reset(){
 	currentAngleXZ = 0.0f;
 	currentAngleYZ = 0.0f;
-	eye = glm::vec3(0.0f, 0.0f, 10.0f);
-	target = glm::vec3(0.0f, 0.0f, 0.0f);
-	up = glm::vec3(0.0f, 1.0f, 0.0f);
+	{
+		eye.x = 0.0f;
+		eye.y = 0.0f;
+		eye.z = 10.0f;
+	}
+	{
+		target.x = 0.0f;
+		target.y = 0.0f;
+		target.z = 0.0f;
+	}
+	{
+		up.x = 0.0f;
+		up.y = 1.0f;
+		up.z = 0.0f;
+	}
 }
 
 void Camera::moveLeft(){

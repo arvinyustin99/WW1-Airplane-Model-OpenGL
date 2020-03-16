@@ -1,12 +1,19 @@
-#include <glm/glm.hpp>
-
 #define PI 3.14159f
+
 class Camera {
 	public:
 		float movementSpeed = 0.1f;
 		float currentAngleXZ, currentAngleYZ;
-		glm::vec3 eye, target, up;
 
+		struct Vec3 {
+			float x;
+			float y;
+			float z;
+		};
+
+		Vec3 origin;
+		Vec3 eye, target, up;
+		
 		static float rad(float);
 		float distance(float, float, float, float);
 

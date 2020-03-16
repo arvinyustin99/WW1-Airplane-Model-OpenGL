@@ -1,6 +1,7 @@
 #include <GL/glut.h>
-#include "camera.cpp"
+#include "camera_struct.cpp"
 #include <iostream>
+#include <math.h>
 
 GLfloat angleCube = 1.0f, speedUnit = 0.2f, delta = 2.0f;
 GLfloat clipX = 1.0f, clipY = 1.0f;
