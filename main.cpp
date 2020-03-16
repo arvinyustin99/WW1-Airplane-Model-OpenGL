@@ -103,6 +103,39 @@ void display(){
 	glRotatef(degreeX, 1.0f, 0.0f, 0.0f);
 	glRotatef(degreeY, 0.0f, 1.0f, 0.0f);
 	glRotatef(degreeZ, 0.0f, 0.0f, 1.0f);
+// Body
+{
+   glBegin(GL_TRIANGLE_FAN);
+    glColor3f(1.0f, 1.0f, 1.0f);     // Green
+      glVertex3f(0.0f,0.0f,0.0f); //0
+      glColor3f(1.0f, 1.0f, 0.0f);
+      glVertex3f( 1.0f, 0.0f,  -1.0f); //1
+      glVertex3f( 0.5f, 1.0f,  -1.0f); // 2
+      glVertex3f( -0.5f, 1.0f,  -1.0f); //3
+      glVertex3f( -1.0f, 0.0f, -1.0f); // 4
+      glVertex3f(-0.5f, -1.0f, -1.0f); // 5
+      glVertex3f(0.5f, -1.0f,  -1.0f); //6
+      glVertex3f(0.75f, -0.5f,  -1.0f);
+      glVertex3f(1.0f, 0.0f,  -1.0f);
+   glEnd();
+
+ glBegin(GL_QUAD_STRIP);
+   glColor3f(1.0f, 0.0f, 1.0f);
+  glVertex3f( 0.3f, 0.5f,  -1.0f); //0
+    glVertex3f( 1.0f, 0.0f,  -1.0f); //1
+     glVertex3f( 0.3f, 1.5f,  -1.0f); //2
+      glVertex3f( 0.5f, 1.0f,  -1.0f); // 3
+     glVertex3f( -0.3f, 1.5f,  -1.0f); //4
+     glVertex3f( -0.5f, 1.0f,  -1.0f); //5
+      glVertex3f( -0.3f, 0.5f, -1.0f); //6
+     glVertex3f( -1.0f, 0.0f, -1.0f); // 7
+      glVertex3f(-0.3f, -0.5f, -1.0f); //8
+    glVertex3f(-0.5f, -1.0f, -1.0f); // 9
+     glVertex3f(0.3f, -0.5,  -1.0f); //10
+      glVertex3f(0.5f, -1.0f,  -1.0f); //11
+      glVertex3f(0.55f, -0.5f,  -1.0f); //12
+   glEnd();
+}
 
 	// WING
 	{
